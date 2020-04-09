@@ -1,0 +1,66 @@
+<!-- 头部 start -->
+
+<script src="js/getParameter.js"></script>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<script>
+    $(function () {
+        //查询用户信息
+        $.get("user/findUser",{},function (data) {
+            //{uid:1,name:'李四'}
+            var msg = "欢迎回来，"+data.nickname;
+            console.log(msg);
+            $("#span_username").html(msg);
+            $("#login_btn").hide();
+            $("#register_btn").hide();
+        });
+
+        //查询分类数据
+        $.get("field/findAll",{},function (data) {
+
+            var lis = '<li><a href="index.html" style="font-weight: bold;font-size: 16px">首页</a></li>';
+            //遍历数组,拼接字符串(<li>)
+            for (var i = 0; i < data.length; i++) {
+                var li = '<li><a href="community_list.html?fid='+data[i].fid+'" style="font-weight: bold;font-size: 16px">'+data[i].fname+'</a></li>';
+
+                lis += li;
+            }
+            lis += '<li><a href="call_us.html" style="font-weight: bold;font-size: 16px">联系我们</a></li>';
+            $("#field").html(lis);
+        });
+    });
+
+</script>
+
+<header id="header">
+    <div class="top_banner">
+        <img src="images/head_2.png" class="img-responsive">
+    </div>
+
+    <div style="margin-top: 10px;height:40px">
+        <div class="col-lg-6" style="width:40%;float:left;margin-left: 12%">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="请输入社区关键词">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">搜索</button>
+                </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+        <div style="width:15%;float:left;margin-left: 5%;margin-top: 8px;font-size: 16px;color: #c12e2a;font-weight: bold">
+            <span id="span_username">请登录</span>
+        </div>
+        <div style="width:25%; float:left;margin-left: 2%">
+            <a class="btn btn-default" id="login_btn" href="login.html" role="button" style="width: 20%">登录</a>
+            <a class="btn btn-default" id="register_btn" href="register.html" role="button" style="width: 20%">注册</a>
+        </div>
+
+    </div>
+</header>
+<!-- 头部 end -->
+<!-- 首页导航 -->
+<div class="navitem">
+    <ul id="field" class="nav">
+
+
+    </ul>
+</div>
+    
